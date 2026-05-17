@@ -1,8 +1,16 @@
 import React from "react";
 
 const ProductDetail = (props: any) => {
-  const { data, isDetail, handleDetail } = props;
-  const product = data.find((item: any) => item.id === isDetail);
+  const {
+    data,
+    isDetail,
+    handleDetail,
+    setIsDetail,
+    productId,
+    setCart,
+    addProduct,
+  } = props;
+  const product = productId(data, isDetail);
   return (
     <>
       {product && (
@@ -21,8 +29,7 @@ const ProductDetail = (props: any) => {
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
               {product.alias}
             </p>
-            <h2
-              className="text-xl font-semibold tracking-wide my-3 px-5 py-3 rounded-xl bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] text-slate-100 border border-slate-700/50 shadow-lg shadow-black/20">
+            <h2 className="text-xl font-semibold tracking-wide my-3 px-5 py-3 rounded-xl bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] text-slate-100 border border-slate-700/50 shadow-lg shadow-black/20">
               {product.name}
             </h2>
             <p className="text-sm text-gray-500 leading-relaxed mb-4">
@@ -38,12 +45,18 @@ const ProductDetail = (props: any) => {
             </div>
             <div className="flex gap-3">
               <button
-                onClick={() => handleDetail(0)}
+                onClick={() => handleDetail(0, setIsDetail)}
                 className="flex-1 border border-gray-200 rounded-lg py-2 text-sm text-gray-500 hover:bg-gray-50 cursor-pointer"
               >
                 Close
               </button>
-              <button className="flex-[2] bg-blue-600 text-white rounded-lg py-2 text-sm hover:bg-blue-700 cursor-pointer">
+              <button
+                className="flex-[2] bg-blue-600 text-white rounded-lg py-2 text-sm hover:bg-blue-700 cursor-pointer"
+                onClick={() => {
+                  addProduct(setCart, product);
+                  setIsDetail(0);
+                }}
+              >
                 Add to cart
               </button>
             </div>
