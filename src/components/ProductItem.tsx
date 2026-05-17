@@ -1,7 +1,7 @@
 import React from "react";
 
 const ProductItem = (props: any) => {
-  const { data, handleDetail } = props;
+  const { data, handleDetail, setIsDetail, setCart, addProduct } = props;
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 m-10">
@@ -27,12 +27,22 @@ const ProductItem = (props: any) => {
             <p className="text-sm text-gray-500 italic leading-relaxed ">
               {item.shortDescription}
             </p>
-            <button
-              onClick={() => handleDetail(item.id)}
-              className="mt-1 w-full py-2.5 px-5 rounded-lg bg-gradient-to-r from-[#041f73] to-blue-400 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity   "
-            >
-              Xem chi tiết →
-            </button>
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-2">
+              <button
+                onClick={() => handleDetail(item.id, setIsDetail)}
+                className="mt-1 w-full py-2.5 px-5 rounded-lg bg-gradient-to-r from-[#041f73] to-blue-400 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity   "
+              >
+                Xem chi tiết →
+              </button>
+              <button
+                className="mt-1 w-full py-2.5 px-5 rounded-lg bg-gradient-to-r from-[#023624] to-green-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => {
+                  addProduct(setCart, item);
+                }}
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         ))}
       </div>
