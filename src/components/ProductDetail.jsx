@@ -1,20 +1,18 @@
-import React from "react";
-
-const ProductDetail = (props: any) => {
-  const {
-    data,
-    isDetail,
-    handleDetail,
-    setIsDetail,
-    productId,
-    setCart,
-    addProduct,
-  } = props;
+const ProductDetail = ({
+  data,
+  isDetail,
+  handleDetail,
+  setIsDetail,
+  productId,
+  setCart,
+  addProduct,
+}) => {
   const product = productId(data, isDetail);
+
   return (
     <>
       {product && (
-        <div className="bg-white rounded-xl border border-gray-100 w-full max-w-sm overflow-hidden shadow-sm ">
+        <div className="bg-white rounded-xl border border-gray-100 w-full max-w-sm overflow-hidden shadow-sm">
           <div className="relative bg-gray-200 h-56 flex items-center justify-center">
             <img
               src={product.image}
@@ -22,9 +20,10 @@ const ProductDetail = (props: any) => {
               className="h-full w-full object-contain p-4"
             />
             <span className="absolute top-3 right-3 text-xs bg-green-200 text-green-700 px-4 py-2 rounded-md font-medium">
-              Còn hàng
+              Con hang
             </span>
           </div>
+
           <div className="p-5">
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
               {product.alias}
@@ -40,7 +39,7 @@ const ProductDetail = (props: any) => {
                 ${product.price}
               </span>
               <span className="text-sm text-gray-500 font-medium border border-gray-300 bg-gray-50 py-2 px-4 rounded-lg">
-                Số lượng: {product.quantity}
+                So luong: {product.quantity}
               </span>
             </div>
             <div className="flex gap-3">
