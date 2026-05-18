@@ -4,7 +4,7 @@ const ProductItem = (props: any) => {
   const { data, handleDetail, setIsDetail, setCart, addProduct } = props;
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 m-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:mx-[10%] mx-auto justify-items-center">
         {data.map((item: any) => (
           <div
             className="relative mt-10 border border-gray-200 rounded-xl p-5 flex flex-col gap-3 w-full max-w-xs bg-white shadow-sm hover:-translate-y-4 transition-all duration-500"
@@ -27,20 +27,20 @@ const ProductItem = (props: any) => {
             <p className="text-sm text-gray-500 italic leading-relaxed ">
               {item.shortDescription}
             </p>
-            <div className="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-2">
+            <div className="grid grid-cols-2  items-center gap-2">
               <button
                 onClick={() => handleDetail(item.id, setIsDetail)}
-                className="mt-1 w-full py-2.5 px-5 rounded-lg bg-gradient-to-r from-[#041f73] to-blue-400 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity   "
+                className="mt-1 w-full py-2.5 rounded-lg bg-blue-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity text-nowrap text-center"
               >
-                Xem chi tiết →
+               Chi tiết
               </button>
               <button
-                className="mt-1 w-full py-2.5 px-5 rounded-lg bg-gradient-to-r from-[#023624] to-green-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity"
+                className="mt-1 w-full py-2.5  rounded-lg bg-green-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity"
                 onClick={() => {
                   addProduct(setCart, item);
                 }}
               >
-                Add to cart
+                 <i className="fa-solid fa-cart-arrow-down"></i>
               </button>
             </div>
           </div>

@@ -36,176 +36,246 @@ const CartProduct = (props: any) => {
     );
   };
   const remove = (id: number) => {
-    confirm("Are you sure that !!!");
+    if (!confirm("Are you sure that !!!")) return null;
     setCart((c: any) => c.filter((p: any) => p.id !== id));
   };
 
   return (
     <>
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-xl fixed w-[65%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-7 py-4 border-b border-gray-100">
-          <h1 className="text-lg font-medium text-gray-800 flex items-center gap-2">
-            🛍 Shopping Cart
-            <span className="text-[11px] font-medium bg-blue-50 text-blue-600 rounded-full px-3 py-0.5">
-              {cart.length} items
-            </span>
-          </h1>
-          <button
-            onClick={() => {
-              setIsCart(false);
-            }}
-            className="w-7 h-7 rounded-full border border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400 hover:text-gray-700 transition text-sm cursor-pointer"
-          >
-            ✕
-          </button>
-        </div>
+      <div className="z-30 flex items-center justify-center fixed w-full top-10 left-1/2 -translate-x-1/2 md:w-[80%] lg:w-[60%]  px-3 ">
+        <div className="flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+          {/* Header */}
+          <div className="flex shrink-0 items-center justify-between border-b px-4 py-4 sm:px-6">
+            <div>
+              <h1 className="text-lg font-bold text-blue-900 sm:text-xl">
+                🛍 Shopping Cart
+              </h1>
+            </div>
+            <button
+              onClick={() => setIsCart(false)}
+              className="flex h-8 w-8 items-center justify-center rounded-full border text-gray-400 hover:bg-red-500 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
 
-        {/* Body */}
-        <div className="flex">
-          {/* Table */}
-          <div className="flex-1 min-w-0 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-100">
-                  <th className="px-4 py-3 text-center text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    #
-                  </th>
-                  <th className="px-4 py-3 text-center text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    Image
-                  </th>
-                  <th className="py-3 text-left text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    Product
-                  </th>
-                  <th className="px-4 py-3 text-center text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    Price
-                  </th>
-                  <th className="px-4 py-3 text-center text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    Qty
-                  </th>
-                  <th className="px-4 py-3 text-center text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-                    Total
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              {cart.length === 0 && (
-                <tbody className="fixed top-2/3 left-1/2 mr-10 -translate-y-1/2 -translate-x-[170px] opacity-80">
-                  <span className="text-center text-9xl text-white ">
-                    <i className="fa-solid fa-cart-plus"></i>
-                  </span>
-                </tbody>
-              )}
-              {cart.length !== 0 && (
-                <tbody>
-                  {cart.map((product: any, index: any) => (
-                    <tr
-                      key={product.id}
-                      className="border-b border-gray-50 hover:bg-blue-50/30 transition-colors"
-                    >
-                      <td className="px-4 py-3 text-center">
-                        <span className="w-5 h-5 rounded-full bg-blue-50 text-blue-500 text-[11px] font-medium inline-flex items-center justify-center">
-                          {index + 1}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex justify-center">
+          {/* Body */}
+          <div className="grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-[1fr_280px]">
+            {/* Products */}
+            <div className="min-h-0 overflow-y-auto ">
+              {cart.length === 0 ? (
+                <div className="flex h-full min-h-[300px] flex-col items-center justify-center text-gray-300">
+                  <i className="fa-solid fa-cart-plus text-7xl"></i>
+                  <p className="mt-4 text-sm text-gray-400">
+                    Giỏ hàng đang trống
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* Desktop table */}
+                  <div className="hidden md:block">
+                    <table className="w-full text-sm">
+                      <thead className="sticky top-0 z-10 bg-gray-200">
+                        <tr className="text-xs uppercase text-blue-900">
+                          <th className="px-3 py-3 text-center">STT</th>
+                          <th className="px-3 py-3 text-center">Image</th>
+                          <th className="px-3 py-3 text-center">Name</th>
+                          <th className="px-3 py-3 text-center">Price</th>
+                          <th className="px-3 py-3 text-center">Qty</th>
+                          <th className="px-3 py-3 text-center">Total</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {cart.map((product: any, index: any) => (
+                          <tr
+                            key={product.id}
+                            className="border-b border-gray-100 hover:bg-blue-50/40"
+                          >
+                            <td className="px-3 py-4 text-center">
+                              {index + 1}
+                            </td>
+
+                            <td className="px-3 py-4">
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="mx-auto h-14 w-14 rounded-xl  object-contain"
+                              />
+                            </td>
+
+                            <td className="px-3 py-4">
+                              <p className="font-semibold text-gray-800">
+                                {product.name}
+                              </p>
+                              <p className="text-xs text-gray-400">
+                                Premium Product
+                              </p>
+                            </td>
+
+                            <td className="px-3 py-4 text-center font-semibold text-blue-600">
+                              ${product.price}
+                            </td>
+
+                            <td className="px-3 py-4">
+                              <div className="mx-auto flex w-fit items-center gap-2 rounded-xl border px-2 py-1">
+                                <button
+                                  onClick={() => decrease(product.id)}
+                                  className="h-7 w-7 rounded-lg bg-gray-100 hover:bg-blue-100"
+                                >
+                                  −
+                                </button>
+
+                                <span className="w-6 text-center font-semibold">
+                                  {product.quantity}
+                                </span>
+
+                                <button
+                                  onClick={() => increase(product.id)}
+                                  className="h-7 w-7 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </td>
+
+                            <td className="px-3 py-4 text-center font-semibold text-green-600">
+                              ${(product.price * product.quantity).toFixed(2)}
+                            </td>
+
+                            <td className="px-3 py-4 text-center">
+                              <button
+                                onClick={() => remove(product.id)}
+                                className="rounded-lg p-2 text-gray-300 hover:bg-red-50 hover:text-red-500"
+                              >
+                                <i className="fa-solid fa-trash text-red-500"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Mobile cards */}
+                  <div className="space-y-3 md:hidden">
+                    {cart.map((product: any) => (
+                      <div
+                        key={product.id}
+                        className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+                      >
+                        <div className="flex gap-3">
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="w-12 h-12 rounded-xl object-cover border border-gray-100"
+                            className="h-20 w-20 rounded-xl border object-contain"
                           />
-                        </div>
-                      </td>
-                      <td className="py-3 pl-0">
-                        <p className="font-medium text-gray-800 text-sm">
-                          {product.name}
-                        </p>
-                        <p className="text-xs text-gray-400 mt-0.5">
-                          Premium Product
-                        </p>
-                      </td>
-                      <td className="px-4 py-3 text-center font-medium text-blue-600">
-                        ${product.price}
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center justify-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2 py-1 w-fit mx-auto">
-                          <button
-                            onClick={() => {
-                              decrease(product.id);
-                              console.log(product.id);
-                            }}
-                            className="cursor-pointer w-5 h-5 rounded bg-gray-100 hover:bg-blue-50 hover:text-blue-500 text-gray-600 flex items-center justify-center text-sm transition"
-                          >
-                            −
-                          </button>
-                          <span className="text-sm font-medium w-4 text-center">
-                            {product.quantity}
-                          </span>
-                          <button
-                            onClick={() => {
-                              increase(product.id);
-                            }}
-                            className="w-5 h-5 rounded bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center text-sm transition"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-center font-medium text-green-600">
-                        ${(product.price * product.quantity).toFixed(2)}
-                      </td>
-                      <td className="px-3 py-3">
-                        <button
-                          onClick={() => remove(product.id)}
-                          className="text-gray-300 hover:text-red-400 hover:bg-red-50 rounded-md p-1 transition text-xs"
-                        >
-                          🗑
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-            </table>
-          </div>
 
-          {/* Summary */}
-          <div className="w-56 flex-shrink-0 border-l border-gray-100 bg-gray-50/60 p-5 flex flex-col">
-            <h2 className="text-sm font-medium text-gray-700 mb-3">Tạm tính</h2>
-            <div className="flex justify-between text-xs text-gray-500 mb-2">
-              <span>Tổng tiền</span>
-              <span className="font-medium text-gray-700">
-                ${sum.toFixed(2)}
-              </span>
+                          <div className="flex-1">
+                            <h3 className="text-sm font-bold text-gray-800">
+                              {product.name}
+                            </h3>
+
+                            <p className="mt-1 text-sm font-semibold text-blue-600">
+                              ${product.price}
+                            </p>
+
+                            <p className="mt-1 text-xs text-green-600">
+                              Total: $
+                              {(product.price * product.quantity).toFixed(2)}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => remove(product.id)}
+                            className="h-8 w-8 rounded-lg text-gray-300 hover:bg-red-50 hover:text-red-500"
+                          >
+                            🗑
+                          </button>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-between">
+                          <span className="text-xs text-gray-400">
+                            Số lượng
+                          </span>
+
+                          <div className="flex items-center gap-2 rounded-xl border px-2 py-1">
+                            <button
+                              onClick={() => decrease(product.id)}
+                              className="h-7 w-7 rounded-lg bg-gray-100"
+                            >
+                              −
+                            </button>
+
+                            <span className="w-6 text-center text-sm font-semibold">
+                              {product.quantity}
+                            </span>
+
+                            <button
+                              onClick={() => increase(product.id)}
+                              className="h-7 w-7 rounded-lg bg-blue-600 text-white"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
-            <div className="flex justify-between text-xs text-gray-500 mb-2">
-              <span>Thuế (1%)</span>
-              <span className="font-medium text-gray-700">
-                ${(sum * 0.01).toFixed(2)}
-              </span>
+
+            {/* Summary */}
+            <div className="shrink-0 border-t bg-gray-50 p-5 lg:border-l lg:border-t-0">
+              <h2 className="mb-4 text-base font-bold text-gray-800">
+                Tóm tắt đơn hàng
+              </h2>
+
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between text-gray-500">
+                  <span>Tổng tiền</span>
+                  <span className="font-semibold text-gray-800">
+                    ${sum.toFixed(2)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between text-gray-500">
+                  <span>Thuế 1%</span>
+                  <span className="font-semibold text-gray-800">
+                    ${(sum * 0.01).toFixed(2)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between text-gray-500">
+                  <span>Vận chuyển</span>
+                  <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                    Miễn phí
+                  </span>
+                </div>
+              </div>
+
+              <hr className="my-4" />
+
+              <div className="mb-5 flex justify-between text-lg font-bold">
+                <span>Total</span>
+                <span>${(sum + sum * 0.01).toFixed(2)}</span>
+              </div>
+
+              <input
+                placeholder="Mã giảm giá..."
+                className="mb-3 w-full rounded-xl border px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-200"
+              />
+
+              <button className="mb-3 w-full rounded-xl border bg-white py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 cursor-pointer">
+                Áp dụng
+              </button>
+
+              <button className=" cursor-pointer w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white hover:bg-blue-700">
+                Thanh toán
+              </button>
             </div>
-            <div className="flex justify-between text-xs text-gray-500 mb-2">
-              <span>Vận chuyển</span>
-              <span className="text-[10px] bg-green-50 text-green-700 font-medium rounded-full px-2 py-0.5">
-                Miễn phí
-              </span>
-            </div>
-            <hr className="my-3 border-gray-200" />
-            <div className="flex justify-between text-sm font-medium text-gray-800 mb-4">
-              <span>Total</span>
-              <span>${(sum + sum * 0.01).toFixed(2)}</span>
-            </div>
-            <input
-              placeholder="Mã giảm giá..."
-              className="w-full text-xs border border-gray-200 rounded-lg px-3 py-2 mb-2 outline-none focus:ring-2 focus:ring-blue-200 bg-white"
-            />
-            <button className="w-full text-xs text-gray-500 border border-gray-200 rounded-lg py-2 mb-3 bg-white hover:bg-gray-50 transition">
-              Áp dụng
-            </button>
-            <button className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition flex items-center justify-center gap-1.5 mt-auto">
-              🔒 Thanh toán
-            </button>
           </div>
         </div>
       </div>
