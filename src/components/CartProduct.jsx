@@ -48,62 +48,61 @@ const CartProduct = ({ cart, setIsCart, setCart, dataShoes }) => {
   };
 
   return (
-    <aside className="fixed left-1/2 top-1/2 z-30 flex max-h-[90vh] w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[2rem] bg-white shadow-2xl shadow-slate-950/30">
-      <div className="grid min-h-[70vh] w-full grid-cols-1 lg:grid-cols-[1fr_340px]">
-        <section className="flex min-h-0 flex-col">
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 sm:px-6">
-            <div className="text-left">
-              <p className="text-xs font-bold uppercase tracking-[3px] text-blue-600">
+    <aside className="cart-modal">
+      <div className="cart-layout">
+        <section className="cart-main">
+          <div className="cart-head">
+            <div>
+              <p className="shoes-eyebrow">
                 Your bag
               </p>
-              <h2 className="text-xl font-black text-slate-950">
+              <h2>
                 Shopping cart
               </h2>
             </div>
             <button
               onClick={() => setIsCart(false)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 text-slate-500 transition hover:bg-slate-950 hover:text-white"
+              className="icon-btn icon-btn-outline"
             >
               <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+          <div className="cart-body">
             {cart.length === 0 ? (
-              <div className="grid h-full min-h-80 place-items-center rounded-3xl border border-dashed border-slate-200 bg-slate-50 text-center">
+              <div className="empty-cart">
                 <div>
-                  <i className="fa-solid fa-bag-shopping text-5xl text-slate-300"></i>
-                  <p className="mt-4 font-bold text-slate-700">
+                  <i className="fa-solid fa-bag-shopping"></i>
+                  <p>
                     Your cart is empty
                   </p>
-                  <p className="mt-1 text-sm text-slate-400">
+                  <span>
                     Pick a pair and it will show up here.
-                  </p>
+                  </span>
                 </div>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="cart-list">
                 {cart.map((product) => (
                   <article
                     key={product.id}
-                    className="grid grid-cols-[76px_1fr] gap-4 rounded-3xl border border-slate-200 bg-white p-3 shadow-sm sm:grid-cols-[84px_1fr_auto]"
+                    className="cart-item"
                   >
-                    <div className="flex h-20 items-center justify-center rounded-2xl bg-slate-100">
+                    <div className="cart-item-media">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="h-full w-full object-contain p-2"
                       />
                     </div>
 
-                    <div className="min-w-0 text-left">
-                      <p className="truncate text-sm font-black text-slate-950">
+                    <div className="cart-item-info">
+                      <p>
                         {product.name}
                       </p>
-                      <p className="mt-1 text-sm font-bold text-blue-600">
+                      <span>
                         ${product.price}
-                      </p>
-                      <div className="mt-3">
+                      </span>
+                      <div className="cart-qty">
                         <QuantityButton
                           quantity={product.quantity}
                           onDecrease={() => decrease(product.id)}
@@ -112,13 +111,13 @@ const CartProduct = ({ cart, setIsCart, setCart, dataShoes }) => {
                       </div>
                     </div>
 
-                    <div className="col-span-2 flex items-center justify-between border-t border-slate-100 pt-3 sm:col-span-1 sm:flex-col sm:items-end sm:border-t-0 sm:pt-0">
-                      <p className="font-black text-slate-950">
+                    <div className="cart-item-total">
+                      <p>
                         ${(product.price * product.quantity).toFixed(2)}
                       </p>
                       <button
                         onClick={() => remove(product.id)}
-                        className="grid h-9 w-9 place-items-center rounded-full text-slate-300 transition hover:bg-red-50 hover:text-red-500"
+                        className="icon-btn remove-btn"
                       >
                         <i className="fa-solid fa-trash"></i>
                       </button>
@@ -130,41 +129,41 @@ const CartProduct = ({ cart, setIsCart, setCart, dataShoes }) => {
           </div>
         </section>
 
-        <section className="border-t border-slate-200 bg-slate-50 p-5 lg:border-l lg:border-t-0 lg:p-6">
-          <div className="rounded-3xl bg-slate-950 p-5 text-white">
-            <p className="text-sm text-slate-300">Order total</p>
-            <p className="mt-2 text-4xl font-black">${total.toFixed(2)}</p>
+        <section className="cart-summary">
+          <div className="total-card hidden md:block">
+            <p>Order total</p>
+            <strong>${total.toFixed(2)}</strong>
           </div>
 
-          <div className="mt-5 space-y-3 text-sm">
-            <div className="flex justify-between text-slate-500">
+          <div className="summary-lines">
+            <div>
               <span>Subtotal</span>
-              <span className="font-bold text-slate-900">
+              <strong>
                 ${subtotal.toFixed(2)}
-              </span>
+              </strong>
             </div>
-            <div className="flex justify-between text-slate-500">
+            <div>
               <span>Tax</span>
-              <span className="font-bold text-slate-900">${tax.toFixed(2)}</span>
+              <strong>${tax.toFixed(2)}</strong>
             </div>
-            <div className="flex justify-between text-slate-500">
+            <div>
               <span>Shipping</span>
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+              <strong className="free-tag">
                 Free
-              </span>
+              </strong>
             </div>
           </div>
 
-          <div className="my-5 h-px bg-slate-200"></div>
+          <div className="summary-divider"></div>
 
           <input
             placeholder="Promo code"
-            className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+            className="promo-input"
           />
-          <button className="mt-3 h-12 w-full rounded-2xl border border-slate-200 bg-white text-sm font-bold text-slate-700 transition hover:bg-slate-100">
+          <button className="btn btn-soft btn-block">
             Apply code
           </button>
-          <button className="mt-3 h-12 w-full rounded-2xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-slate-950">
+          <button className="btn btn-primary btn-block">
             Checkout
           </button>
         </section>
