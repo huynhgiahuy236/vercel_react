@@ -2,21 +2,6 @@ import React from "react";
 
 const CartProduct = (props: any) => {
   const { cart, setIsCart, setCart, dataShoes } = props;
-  if (cart.length === 0) {
-    return (
-      <div
-        className="bg-blue-100 rounded-2xl shadow-2xl fixed w-[60%] left-1/2 h-auto top-1/2 -translate-y-1/2 
-      -translate-x-1/2 z-30"
-      >
-        <div className="container mx-auto p-5 ">
-          <h1 className="text-2xl font-semibold mb-4 text-blue-700">
-            Shopping Cart
-          </h1>
-          <tbody>chua them vao gio hang</tbody>
-        </div>
-      </div>
-    );
-  }
   const sum = cart.reduce(
     (sum: any, item: any) => sum + item.price * item.quantity,
     0,
@@ -51,7 +36,7 @@ const CartProduct = (props: any) => {
     );
   };
   const remove = (id: number) => {
-    confirm("Are you sure that !!!")
+    confirm("Are you sure that !!!");
     setCart((c: any) => c.filter((p: any) => p.id !== id));
   };
 
@@ -104,75 +89,84 @@ const CartProduct = (props: any) => {
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                {cart.map((product: any, index: any) => (
-                  <tr
-                    key={product.id}
-                    className="border-b border-gray-50 hover:bg-blue-50/30 transition-colors"
-                  >
-                    <td className="px-4 py-3 text-center">
-                      <span className="w-5 h-5 rounded-full bg-blue-50 text-blue-500 text-[11px] font-medium inline-flex items-center justify-center">
-                        {index + 1}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex justify-center">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-12 h-12 rounded-xl object-cover border border-gray-100"
-                        />
-                      </div>
-                    </td>
-                    <td className="py-3 pl-0">
-                      <p className="font-medium text-gray-800 text-sm">
-                        {product.name}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        Premium Product
-                      </p>
-                    </td>
-                    <td className="px-4 py-3 text-center font-medium text-blue-600">
-                      ${product.price}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2 py-1 w-fit mx-auto">
-                        <button
-                          onClick={() => {
-                            decrease(product.id);
-                            console.log(product.id);
-                          }}
-                          className="cursor-pointer w-5 h-5 rounded bg-gray-100 hover:bg-blue-50 hover:text-blue-500 text-gray-600 flex items-center justify-center text-sm transition"
-                        >
-                          −
-                        </button>
-                        <span className="text-sm font-medium w-4 text-center">
-                          {product.quantity}
+              {cart.length === 0 && (
+                <tbody className="fixed top-2/3 left-1/2 mr-10 -translate-y-1/2 -translate-x-[170px] opacity-80">
+                  <span className="text-center text-9xl text-white ">
+                    <i className="fa-solid fa-cart-plus"></i>
+                  </span>
+                </tbody>
+              )}
+              {cart.length !== 0 && (
+                <tbody>
+                  {cart.map((product: any, index: any) => (
+                    <tr
+                      key={product.id}
+                      className="border-b border-gray-50 hover:bg-blue-50/30 transition-colors"
+                    >
+                      <td className="px-4 py-3 text-center">
+                        <span className="w-5 h-5 rounded-full bg-blue-50 text-blue-500 text-[11px] font-medium inline-flex items-center justify-center">
+                          {index + 1}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-center">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-12 h-12 rounded-xl object-cover border border-gray-100"
+                          />
+                        </div>
+                      </td>
+                      <td className="py-3 pl-0">
+                        <p className="font-medium text-gray-800 text-sm">
+                          {product.name}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          Premium Product
+                        </p>
+                      </td>
+                      <td className="px-4 py-3 text-center font-medium text-blue-600">
+                        ${product.price}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2 py-1 w-fit mx-auto">
+                          <button
+                            onClick={() => {
+                              decrease(product.id);
+                              console.log(product.id);
+                            }}
+                            className="cursor-pointer w-5 h-5 rounded bg-gray-100 hover:bg-blue-50 hover:text-blue-500 text-gray-600 flex items-center justify-center text-sm transition"
+                          >
+                            −
+                          </button>
+                          <span className="text-sm font-medium w-4 text-center">
+                            {product.quantity}
+                          </span>
+                          <button
+                            onClick={() => {
+                              increase(product.id);
+                            }}
+                            className="w-5 h-5 rounded bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center text-sm transition"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-center font-medium text-green-600">
+                        ${(product.price * product.quantity).toFixed(2)}
+                      </td>
+                      <td className="px-3 py-3">
                         <button
-                          onClick={() => {
-                            increase(product.id);
-                          }}
-                          className="w-5 h-5 rounded bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center text-sm transition"
+                          onClick={() => remove(product.id)}
+                          className="text-gray-300 hover:text-red-400 hover:bg-red-50 rounded-md p-1 transition text-xs"
                         >
-                          +
+                          🗑
                         </button>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-center font-medium text-green-600">
-                      ${(product.price * product.quantity).toFixed(2)}
-                    </td>
-                    <td className="px-3 py-3">
-                      <button
-                        onClick={() => remove(product.id)}
-                        className="text-gray-300 hover:text-red-400 hover:bg-red-50 rounded-md p-1 transition text-xs"
-                      >
-                        🗑
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
 
