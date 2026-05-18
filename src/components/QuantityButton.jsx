@@ -1,48 +1,20 @@
-/**
- * Reusable QuantityButton component for increasing/decreasing quantity
- * Used in both desktop table and mobile view
- */
-const QuantityButton = ({ quantity, onDecrease, onIncrease, isMobile = false }) => {
-  if (isMobile) {
-    return (
-      <div className="flex items-center gap-2 rounded-xl border px-2 py-1">
-        <button
-          onClick={onDecrease}
-          className="h-7 w-7 rounded-lg bg-gray-100"
-        >
-          −
-        </button>
-
-        <span className="w-6 text-center text-sm font-semibold">
-          {quantity}
-        </span>
-
-        <button
-          onClick={onIncrease}
-          className="h-7 w-7 rounded-lg bg-blue-600 text-white"
-        >
-          +
-        </button>
-      </div>
-    );
-  }
-
+const QuantityButton = ({ quantity, onDecrease, onIncrease }) => {
   return (
-    <div className="mx-auto flex w-fit items-center gap-2 rounded-xl border px-2 py-1">
+    <div className="inline-flex items-center rounded-full border border-slate-200 bg-white p-1 shadow-sm">
       <button
         onClick={onDecrease}
-        className="h-7 w-7 rounded-lg bg-gray-100 hover:bg-blue-100"
+        className="grid h-8 w-8 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-950"
       >
-        −
+        -
       </button>
 
-      <span className="w-6 text-center font-semibold">
+      <span className="w-8 text-center text-sm font-black text-slate-900">
         {quantity}
       </span>
 
       <button
         onClick={onIncrease}
-        className="h-7 w-7 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+        className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-white transition hover:bg-blue-600"
       >
         +
       </button>

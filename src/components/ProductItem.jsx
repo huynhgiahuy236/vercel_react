@@ -1,40 +1,48 @@
 const ProductItem = ({ item, handleDetail, setIsDetail, setCart, addProduct }) => {
   return (
-    <div className="relative mt-10 border border-gray-200 rounded-xl p-5 flex flex-col gap-3 w-full max-w-xs bg-white shadow-sm hover:-translate-y-4 transition-all duration-500">
-      <span className="absolute -top-4 -right-4 bg-green-600 text-white text-sm font-semibold py-1.5 px-4 rounded-full shadow-md shadow-green-200">
-        ${item.price}
-      </span>
-
-      <div className="rounded-lg overflow-hidden bg-gray-50 h-44 flex items-center justify-center">
+    <article className="group flex min-h-[420px] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200">
+      <div className="relative m-3 flex h-52 items-center justify-center overflow-hidden rounded-2xl bg-slate-100">
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-700 shadow-sm">
+          In stock
+        </span>
+        <span className="absolute right-3 top-3 rounded-full bg-slate-950 px-3 py-1 text-sm font-black text-white">
+          ${item.price}
+        </span>
         <img
           src={item.image}
           alt={item.name}
-          className="h-full w-full object-contain"
+          className="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-110"
         />
       </div>
-      <h2 className="text-lg font-bold text-[#041f73] leading-snug">
-        {item.name}
-      </h2>
-      <p className="text-sm text-gray-500 italic leading-relaxed">
-        {item.shortDescription}
-      </p>
-      <div className="grid grid-cols-2 items-center gap-2">
-        <button
-          onClick={() => handleDetail(item.id, setIsDetail)}
-          className="mt-1 w-full py-2.5 rounded-lg bg-blue-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity text-nowrap text-center"
-        >
-          Chi tiet
-        </button>
-        <button
-          className="mt-1 w-full py-2.5 rounded-lg bg-green-700 text-white text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity"
-          onClick={() => {
-            addProduct(setCart, item);
-          }}
-        >
-          <i className="fa-solid fa-cart-arrow-down"></i>
-        </button>
+
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-2 text-left">
+        <p className="mb-2 text-xs font-bold uppercase tracking-[2px] text-blue-600">
+          {item.alias}
+        </p>
+        <h3 className="min-h-14 text-lg font-black leading-7 text-slate-950">
+          {item.name}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">
+          {item.shortDescription}
+        </p>
+
+        <div className="mt-auto grid grid-cols-[1fr_48px] gap-2 pt-5">
+          <button
+            onClick={() => handleDetail(item.id, setIsDetail)}
+            className="h-12 rounded-2xl border border-slate-200 bg-white text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          >
+            View detail
+          </button>
+          <button
+            className="grid h-12 place-items-center rounded-2xl bg-blue-600 text-white transition hover:bg-slate-950"
+            onClick={() => addProduct(setCart, item)}
+            title="Add to cart"
+          >
+            <i className="fa-solid fa-cart-plus"></i>
+          </button>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 
